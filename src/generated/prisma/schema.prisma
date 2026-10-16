@@ -12,14 +12,36 @@ datasource db {
  * | ADMIN USER
  * |--------------------------------------------------------------------------
  */
+
 model AdminUser {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  passwordHash String
-  name         String?
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                  Int                  @id @default(autoincrement())
+  username            String               @unique @db.VarChar(100)
+  email               String               @unique @db.VarChar(255)
+  passwordHash        String
+  name                String?              @db.VarChar(255)
+  mobile              String?              @db.VarChar(20)
+  isActive            Boolean              @default(true)
+  role                String               @default("USER") @db.VarChar(30)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  passwordResetTokens PasswordResetToken[]
+
+  @@map("admin_users")
+}
+
+model PasswordResetToken {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  tokenHash String    @unique @db.VarChar(64)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("password_reset_tokens")
 }
 
 /**

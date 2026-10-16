@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../lib/prisma";
+import { sendFormNotification } from "../lib/mailer";
 
 /**
  * ==========================================================================
@@ -100,6 +101,34 @@ export async function createContactInquiry(
           status: "new",
         },
       });
+      try {
+  const recipient = process.env.CONTACT_NOTIFICATION_EMAIL;
+
+  if (!recipient) {
+    throw new Error("CONTACT_NOTIFICATION_EMAIL is not configured.");
+  }
+
+  await sendFormNotification({
+    to: recipient,
+    subject: `New Contact Inquiry: ${inquiry.subject || inquiry.name}`,
+    replyTo: inquiry.email,
+    text: [
+      "New contact form submission",
+      ""
+      ,
+      `Name: ${inquiry.name}`,
+      `Email: ${inquiry.email}`,
+      `Company: ${inquiry.companyName || "Not provided"}`,
+      `Phone: ${inquiry.phone || "Not provided"}`,
+      `Subject: ${inquiry.subject || "Not provided"}`,
+      "",
+      "Message:",
+      inquiry.message,
+    ].join("\n"),
+  });
+} catch (emailError) {
+  console.error("Contact notification email failed:", emailError);
+}
 
     // ----------------------------------------------------------------------
     // Response

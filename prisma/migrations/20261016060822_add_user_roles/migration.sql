@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `admin_users` ADD COLUMN `role` VARCHAR(30) NOT NULL DEFAULT 'USER';

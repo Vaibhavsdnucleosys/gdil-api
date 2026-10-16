@@ -69,7 +69,7 @@ export function authenticateJWT(
     req.user = {
       id: Number(decoded.sub),
       email: String(decoded.email),
-      role: String(decoded.role || "admin"),
+      role: String(decoded.role || "USER"),
     };
 
     next();

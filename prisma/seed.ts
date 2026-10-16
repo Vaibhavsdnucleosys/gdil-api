@@ -102,28 +102,51 @@ async function main() {
     12,
   );
 
-  const admin = await prisma.adminUser.upsert({
-    where: {
-      email: adminEmail,
-    },
+  // const admin = await prisma.adminUser.upsert({
+  //   where: {
+  //     email: adminEmail,
+  //   },
 
-    update: {
-      name: "GDIL Admin",
-      passwordHash,
-      isActive: true,
-    },
+  //   update: {
+  //     name: "GDIL Admin",
+  //     passwordHash,
+  //     isActive: true,
+  //   },
 
-    create: {
-      email: adminEmail,
-      name: "GDIL Admin",
-      passwordHash,
-      isActive: true,
-    },
-  });
+  //   create: {
+  //     email: adminEmail,
+  //     name: "GDIL Admin",
+  //     passwordHash,
+  //     isActive: true,
+  //   },
+  // });
 
-  console.log(
-    `Admin user created/updated: ${admin.email}`,
-  );
+const admin = await prisma.adminUser.upsert({
+  where: {
+    email: adminEmail,
+  },
+
+  update: {
+    username: "gdiladmin",
+    name: "GDIL Admin",
+    passwordHash,
+    role: "SYSTEM_ADMIN",
+    isActive: true,
+  },
+
+  create: {
+    username: "gdiladmin",
+    email: adminEmail,
+    name: "GDIL Admin",
+    passwordHash,
+    role: "SYSTEM_ADMIN",
+    isActive: true,
+  },
+});
+
+console.log(
+  `System Admin created/updated: ${admin.email} (${admin.role})`,
+);
 
   /*
   |--------------------------------------------------------------------------

@@ -122,12 +122,24 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.AdminUserScalarFieldEnum = {
   id: 'id',
+  username: 'username',
   email: 'email',
   passwordHash: 'passwordHash',
   name: 'name',
+  mobile: 'mobile',
   isActive: 'isActive',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.ContactInquiryScalarFieldEnum = {
@@ -308,9 +320,16 @@ exports.Prisma.NullsOrder = {
 };
 
 exports.Prisma.AdminUserOrderByRelevanceFieldEnum = {
+  username: 'username',
   email: 'email',
   passwordHash: 'passwordHash',
-  name: 'name'
+  name: 'name',
+  mobile: 'mobile',
+  role: 'role'
+};
+
+exports.Prisma.PasswordResetTokenOrderByRelevanceFieldEnum = {
+  tokenHash: 'tokenHash'
 };
 
 exports.Prisma.ContactInquiryOrderByRelevanceFieldEnum = {
@@ -428,6 +447,7 @@ exports.InvestorTableFieldType = exports.$Enums.InvestorTableFieldType = {
 
 exports.Prisma.ModelName = {
   AdminUser: 'AdminUser',
+  PasswordResetToken: 'PasswordResetToken',
   ContactInquiry: 'ContactInquiry',
   CareerApplication: 'CareerApplication',
   NewsletterSubscriber: 'NewsletterSubscriber',

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../lib/prisma";
-
+import { sendFormNotification } from "../lib/mailer";
 /**
  * ==========================================================================
  * CREATE CAREER APPLICATION
@@ -106,6 +106,33 @@ export async function createCareerApplication(
           status: "new",
         },
       });
+      try {
+  const recipient = process.env.CAREER_NOTIFICATION_EMAIL;
+
+  if (!recipient) {
+    throw new Error("CAREER_NOTIFICATION_EMAIL is not configured.");
+  }
+
+  await sendFormNotification({
+    to: recipient,
+    subject: `New Career Application: ${application.position}`,
+    replyTo: application.email,
+    text: [
+      "New career application",
+      "",
+      `Name: ${application.name}`,
+      `Email: ${application.email}`,
+      `Phone: ${application.phone || "Not provided"}`,
+      `Position: ${application.position}`,
+      `Experience: ${application.experience}`,
+      "",
+      "Message:",
+      application.message,
+    ].join("\n"),
+  });
+} catch (emailError) {
+  console.error("Career notification email failed:", emailError);
+}
 
     // ----------------------------------------------------------------------
     // Response
