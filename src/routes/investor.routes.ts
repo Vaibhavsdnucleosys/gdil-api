@@ -1,8 +1,7 @@
 import { Router } from "express";
 
-import {
-  authenticateJWT,
-} from "../middleware/auth.middleware";
+import { authenticateJWT } from "../middleware/auth.middleware";
+import { authorizeModule } from "../middleware/authorize";
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +116,7 @@ router.get(
 router.get(
   "/admin/categories",
   authenticateJWT,
+  authorizeModule("categories"),
   getInvestorCategories,
 );
 
@@ -133,6 +133,7 @@ router.get(
 router.post(
   "/admin/categories",
   authenticateJWT,
+  authorizeModule("categories"),
   createInvestorCategory,
 );
 
@@ -155,8 +156,10 @@ router.post(
 router.put(
   "/admin/categories/:id",
   authenticateJWT,
+  authorizeModule("categories"),
   updateInvestorCategory,
 );
+
 
 /**
  * @swagger
@@ -177,9 +180,9 @@ router.put(
 router.delete(
   "/admin/categories/:id",
   authenticateJWT,
+  authorizeModule("categories"),
   deleteInvestorCategory,
 );
-
 /*
 |--------------------------------------------------------------------------
 | INVESTOR FINANCIAL YEAR
@@ -200,6 +203,7 @@ router.get(
 router.get(
   "/admin/financial-years",
   authenticateJWT,
+  authorizeModule("financial-years"),
   getInvestorFinancialYears,
 );
 
@@ -256,6 +260,7 @@ router.get(
 router.post(
   "/admin/financial-years",
   authenticateJWT,
+  authorizeModule("financial-years"),
   createInvestorFinancialYear,
 );
 
@@ -266,6 +271,7 @@ router.post(
 router.put(
   "/admin/financial-years/:id",
   authenticateJWT,
+  authorizeModule("financial-years"),
   updateInvestorFinancialYear,
 );
 
@@ -276,6 +282,7 @@ router.put(
 router.delete(
   "/admin/financial-years/:id",
   authenticateJWT,
+  authorizeModule("financial-years"),
   deleteInvestorFinancialYear,
 );
 
@@ -292,6 +299,7 @@ router.delete(
 router.patch(
   "/admin/financial-years/:id/status",
   authenticateJWT,
+  authorizeModule("financial-years"),
   updateInvestorFinancialYearStatus,
 );
 
@@ -347,6 +355,7 @@ router.get(
 router.get(
   "/admin/quarters",
   authenticateJWT,
+  authorizeModule("quarters"),
   getAdminInvestorQuarters,
 );
 
@@ -358,6 +367,7 @@ router.get(
 router.post(
   "/admin/quarters",
   authenticateJWT,
+  authorizeModule("quarters"),
   createInvestorQuarter,
 );
 
@@ -369,6 +379,7 @@ router.post(
 router.put(
   "/admin/quarters/:id",
   authenticateJWT,
+  authorizeModule("quarters"),
   updateInvestorQuarter,
 );
 
@@ -380,6 +391,7 @@ router.put(
 router.delete(
   "/admin/quarters/:id",
   authenticateJWT,
+  authorizeModule("quarters"),
   deleteInvestorQuarter,
 );
 
@@ -391,6 +403,7 @@ router.delete(
 router.patch(
   "/admin/quarters/:id/status",
   authenticateJWT,
+  authorizeModule("quarters"),
   updateInvestorQuarterStatus,
 );
 
@@ -432,24 +445,28 @@ router.get(
 router.get(
   "/admin/documents",
   authenticateJWT,
+  authorizeModule("documents"),
   getInvestorDocuments,
 );
 
 router.post(
   "/admin/documents",
   authenticateJWT,
+  authorizeModule("documents"),
   createInvestorDocument,
 );
 
 router.put(
   "/admin/documents/:id",
   authenticateJWT,
+  authorizeModule("documents"),
   updateInvestorDocument,
 );
 
 router.delete(
   "/admin/documents/:id",
   authenticateJWT,
+  authorizeModule("documents"),
   deleteInvestorDocument,
 );
 

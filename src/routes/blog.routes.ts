@@ -17,6 +17,7 @@ import {
 } from "../controllers/blog.controller";
 
 import { authenticateJWT } from "../middleware/auth.middleware";
+import { authorizeModule } from "../middleware/authorize";
 
 const router = Router();
 
@@ -66,6 +67,7 @@ router.get("/type/:type", getBlogsByType);
 router.get(
   "/admin/types",
   authenticateJWT,
+  authorizeModule("news"),
   getBlogTypes
 );
 
@@ -84,6 +86,7 @@ router.get(
 router.get(
   "/admin",
   authenticateJWT,
+  authorizeModule("news"),
   getAdminBlogs
 );
 
@@ -95,6 +98,7 @@ router.get(
 router.get(
   "/admin/:id",
   authenticateJWT,
+  authorizeModule("news"),
   getAdminBlogById
 );
 
@@ -106,6 +110,7 @@ router.get(
 router.post(
   "/admin",
   authenticateJWT,
+  authorizeModule("news"),
   createBlog
 );
 
@@ -117,6 +122,7 @@ router.post(
 router.put(
   "/admin/:id",
   authenticateJWT,
+  authorizeModule("news"),
   updateBlog
 );
 
@@ -128,6 +134,7 @@ router.put(
 router.delete(
   "/admin/:id",
   authenticateJWT,
+  authorizeModule("news"),
   deleteBlog
 );
 
@@ -144,6 +151,7 @@ router.delete(
 router.patch(
   "/admin/:id/status",
   authenticateJWT,
+  authorizeModule("news"),
   updateBlogStatus
 );
 

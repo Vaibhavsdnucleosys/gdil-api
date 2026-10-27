@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type AdminUser = $Result.DefaultSelection<Prisma.$AdminUserPayload>
 /**
+ * Model BrowserSession
+ * 
+ */
+export type BrowserSession = $Result.DefaultSelection<Prisma.$BrowserSessionPayload>
+/**
  * Model PasswordResetToken
  * 
  */
@@ -291,6 +296,16 @@ export class PrismaClient<
     * ```
     */
   get adminUser(): Prisma.AdminUserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.browserSession`: Exposes CRUD operations for the **BrowserSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BrowserSessions
+    * const browserSessions = await prisma.browserSession.findMany()
+    * ```
+    */
+  get browserSession(): Prisma.BrowserSessionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.passwordResetToken`: Exposes CRUD operations for the **PasswordResetToken** model.
@@ -879,6 +894,7 @@ export namespace Prisma {
 
   export const ModelName: {
     AdminUser: 'AdminUser',
+    BrowserSession: 'BrowserSession',
     PasswordResetToken: 'PasswordResetToken',
     ContactInquiry: 'ContactInquiry',
     CareerApplication: 'CareerApplication',
@@ -908,7 +924,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "adminUser" | "passwordResetToken" | "contactInquiry" | "careerApplication" | "newsletterSubscriber" | "blogPost" | "industryParticipationGallery" | "investorCategory" | "investorSubCategory" | "investorFinancialYear" | "investorQuarter" | "investorTableFormat" | "investorTableColumn" | "investorTableFormatAssignment" | "investorDocument"
+      modelProps: "adminUser" | "browserSession" | "passwordResetToken" | "contactInquiry" | "careerApplication" | "newsletterSubscriber" | "blogPost" | "industryParticipationGallery" | "investorCategory" | "investorSubCategory" | "investorFinancialYear" | "investorQuarter" | "investorTableFormat" | "investorTableColumn" | "investorTableFormatAssignment" | "investorDocument"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -975,6 +991,72 @@ export namespace Prisma {
           count: {
             args: Prisma.AdminUserCountArgs<ExtArgs>
             result: $Utils.Optional<AdminUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      BrowserSession: {
+        payload: Prisma.$BrowserSessionPayload<ExtArgs>
+        fields: Prisma.BrowserSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BrowserSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BrowserSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.BrowserSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BrowserSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>
+          }
+          findMany: {
+            args: Prisma.BrowserSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>[]
+          }
+          create: {
+            args: Prisma.BrowserSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>
+          }
+          createMany: {
+            args: Prisma.BrowserSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.BrowserSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>
+          }
+          update: {
+            args: Prisma.BrowserSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.BrowserSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BrowserSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BrowserSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BrowserSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.BrowserSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBrowserSession>
+          }
+          groupBy: {
+            args: Prisma.BrowserSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BrowserSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BrowserSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<BrowserSessionCountAggregateOutputType> | number
           }
         }
       }
@@ -2026,6 +2108,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     adminUser?: AdminUserOmit
+    browserSession?: BrowserSessionOmit
     passwordResetToken?: PasswordResetTokenOmit
     contactInquiry?: ContactInquiryOmit
     careerApplication?: CareerApplicationOmit
@@ -2121,10 +2204,12 @@ export namespace Prisma {
 
   export type AdminUserCountOutputType = {
     passwordResetTokens: number
+    browserSessions: number
   }
 
   export type AdminUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     passwordResetTokens?: boolean | AdminUserCountOutputTypeCountPasswordResetTokensArgs
+    browserSessions?: boolean | AdminUserCountOutputTypeCountBrowserSessionsArgs
   }
 
   // Custom InputTypes
@@ -2143,6 +2228,13 @@ export namespace Prisma {
    */
   export type AdminUserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * AdminUserCountOutputType without action
+   */
+  export type AdminUserCountOutputTypeCountBrowserSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BrowserSessionWhereInput
   }
 
 
@@ -2656,6 +2748,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     passwordResetTokens?: boolean | AdminUser$passwordResetTokensArgs<ExtArgs>
+    browserSessions?: boolean | AdminUser$browserSessionsArgs<ExtArgs>
     _count?: boolean | AdminUserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["adminUser"]>
 
@@ -2677,6 +2770,7 @@ export namespace Prisma {
   export type AdminUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "passwordHash" | "name" | "mobile" | "isActive" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["adminUser"]>
   export type AdminUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     passwordResetTokens?: boolean | AdminUser$passwordResetTokensArgs<ExtArgs>
+    browserSessions?: boolean | AdminUser$browserSessionsArgs<ExtArgs>
     _count?: boolean | AdminUserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2684,6 +2778,7 @@ export namespace Prisma {
     name: "AdminUser"
     objects: {
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      browserSessions: Prisma.$BrowserSessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3037,6 +3132,7 @@ export namespace Prisma {
   export interface Prisma__AdminUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     passwordResetTokens<T extends AdminUser$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, AdminUser$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    browserSessions<T extends AdminUser$browserSessionsArgs<ExtArgs> = {}>(args?: Subset<T, AdminUser$browserSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3448,6 +3544,30 @@ export namespace Prisma {
   }
 
   /**
+   * AdminUser.browserSessions
+   */
+  export type AdminUser$browserSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    where?: BrowserSessionWhereInput
+    orderBy?: BrowserSessionOrderByWithRelationInput | BrowserSessionOrderByWithRelationInput[]
+    cursor?: BrowserSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BrowserSessionScalarFieldEnum | BrowserSessionScalarFieldEnum[]
+  }
+
+  /**
    * AdminUser without action
    */
   export type AdminUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3463,6 +3583,1011 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AdminUserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BrowserSession
+   */
+
+  export type AggregateBrowserSession = {
+    _count: BrowserSessionCountAggregateOutputType | null
+    _avg: BrowserSessionAvgAggregateOutputType | null
+    _sum: BrowserSessionSumAggregateOutputType | null
+    _min: BrowserSessionMinAggregateOutputType | null
+    _max: BrowserSessionMaxAggregateOutputType | null
+  }
+
+  export type BrowserSessionAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type BrowserSessionSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type BrowserSessionMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    browserId: string | null
+    sessionKey: string | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BrowserSessionMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    browserId: string | null
+    sessionKey: string | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BrowserSessionCountAggregateOutputType = {
+    id: number
+    userId: number
+    browserId: number
+    sessionKey: number
+    expiresAt: number
+    revokedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BrowserSessionAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type BrowserSessionSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type BrowserSessionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    sessionKey?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BrowserSessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    sessionKey?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BrowserSessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    sessionKey?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BrowserSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BrowserSession to aggregate.
+     */
+    where?: BrowserSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrowserSessions to fetch.
+     */
+    orderBy?: BrowserSessionOrderByWithRelationInput | BrowserSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BrowserSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrowserSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrowserSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BrowserSessions
+    **/
+    _count?: true | BrowserSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BrowserSessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BrowserSessionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BrowserSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BrowserSessionMaxAggregateInputType
+  }
+
+  export type GetBrowserSessionAggregateType<T extends BrowserSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateBrowserSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBrowserSession[P]>
+      : GetScalarType<T[P], AggregateBrowserSession[P]>
+  }
+
+
+
+
+  export type BrowserSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BrowserSessionWhereInput
+    orderBy?: BrowserSessionOrderByWithAggregationInput | BrowserSessionOrderByWithAggregationInput[]
+    by: BrowserSessionScalarFieldEnum[] | BrowserSessionScalarFieldEnum
+    having?: BrowserSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BrowserSessionCountAggregateInputType | true
+    _avg?: BrowserSessionAvgAggregateInputType
+    _sum?: BrowserSessionSumAggregateInputType
+    _min?: BrowserSessionMinAggregateInputType
+    _max?: BrowserSessionMaxAggregateInputType
+  }
+
+  export type BrowserSessionGroupByOutputType = {
+    id: number
+    userId: number
+    browserId: string
+    sessionKey: string
+    expiresAt: Date
+    revokedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: BrowserSessionCountAggregateOutputType | null
+    _avg: BrowserSessionAvgAggregateOutputType | null
+    _sum: BrowserSessionSumAggregateOutputType | null
+    _min: BrowserSessionMinAggregateOutputType | null
+    _max: BrowserSessionMaxAggregateOutputType | null
+  }
+
+  type GetBrowserSessionGroupByPayload<T extends BrowserSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BrowserSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BrowserSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BrowserSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], BrowserSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BrowserSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    sessionKey?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | AdminUserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["browserSession"]>
+
+
+
+  export type BrowserSessionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    sessionKey?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BrowserSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "browserId" | "sessionKey" | "expiresAt" | "revokedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["browserSession"]>
+  export type BrowserSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AdminUserDefaultArgs<ExtArgs>
+  }
+
+  export type $BrowserSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BrowserSession"
+    objects: {
+      user: Prisma.$AdminUserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      browserId: string
+      sessionKey: string
+      expiresAt: Date
+      revokedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["browserSession"]>
+    composites: {}
+  }
+
+  type BrowserSessionGetPayload<S extends boolean | null | undefined | BrowserSessionDefaultArgs> = $Result.GetResult<Prisma.$BrowserSessionPayload, S>
+
+  type BrowserSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BrowserSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BrowserSessionCountAggregateInputType | true
+    }
+
+  export interface BrowserSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BrowserSession'], meta: { name: 'BrowserSession' } }
+    /**
+     * Find zero or one BrowserSession that matches the filter.
+     * @param {BrowserSessionFindUniqueArgs} args - Arguments to find a BrowserSession
+     * @example
+     * // Get one BrowserSession
+     * const browserSession = await prisma.browserSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BrowserSessionFindUniqueArgs>(args: SelectSubset<T, BrowserSessionFindUniqueArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BrowserSession that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BrowserSessionFindUniqueOrThrowArgs} args - Arguments to find a BrowserSession
+     * @example
+     * // Get one BrowserSession
+     * const browserSession = await prisma.browserSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BrowserSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, BrowserSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BrowserSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionFindFirstArgs} args - Arguments to find a BrowserSession
+     * @example
+     * // Get one BrowserSession
+     * const browserSession = await prisma.browserSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BrowserSessionFindFirstArgs>(args?: SelectSubset<T, BrowserSessionFindFirstArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BrowserSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionFindFirstOrThrowArgs} args - Arguments to find a BrowserSession
+     * @example
+     * // Get one BrowserSession
+     * const browserSession = await prisma.browserSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BrowserSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, BrowserSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BrowserSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BrowserSessions
+     * const browserSessions = await prisma.browserSession.findMany()
+     * 
+     * // Get first 10 BrowserSessions
+     * const browserSessions = await prisma.browserSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const browserSessionWithIdOnly = await prisma.browserSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BrowserSessionFindManyArgs>(args?: SelectSubset<T, BrowserSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BrowserSession.
+     * @param {BrowserSessionCreateArgs} args - Arguments to create a BrowserSession.
+     * @example
+     * // Create one BrowserSession
+     * const BrowserSession = await prisma.browserSession.create({
+     *   data: {
+     *     // ... data to create a BrowserSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends BrowserSessionCreateArgs>(args: SelectSubset<T, BrowserSessionCreateArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BrowserSessions.
+     * @param {BrowserSessionCreateManyArgs} args - Arguments to create many BrowserSessions.
+     * @example
+     * // Create many BrowserSessions
+     * const browserSession = await prisma.browserSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BrowserSessionCreateManyArgs>(args?: SelectSubset<T, BrowserSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BrowserSession.
+     * @param {BrowserSessionDeleteArgs} args - Arguments to delete one BrowserSession.
+     * @example
+     * // Delete one BrowserSession
+     * const BrowserSession = await prisma.browserSession.delete({
+     *   where: {
+     *     // ... filter to delete one BrowserSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BrowserSessionDeleteArgs>(args: SelectSubset<T, BrowserSessionDeleteArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BrowserSession.
+     * @param {BrowserSessionUpdateArgs} args - Arguments to update one BrowserSession.
+     * @example
+     * // Update one BrowserSession
+     * const browserSession = await prisma.browserSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BrowserSessionUpdateArgs>(args: SelectSubset<T, BrowserSessionUpdateArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BrowserSessions.
+     * @param {BrowserSessionDeleteManyArgs} args - Arguments to filter BrowserSessions to delete.
+     * @example
+     * // Delete a few BrowserSessions
+     * const { count } = await prisma.browserSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BrowserSessionDeleteManyArgs>(args?: SelectSubset<T, BrowserSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BrowserSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BrowserSessions
+     * const browserSession = await prisma.browserSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BrowserSessionUpdateManyArgs>(args: SelectSubset<T, BrowserSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BrowserSession.
+     * @param {BrowserSessionUpsertArgs} args - Arguments to update or create a BrowserSession.
+     * @example
+     * // Update or create a BrowserSession
+     * const browserSession = await prisma.browserSession.upsert({
+     *   create: {
+     *     // ... data to create a BrowserSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BrowserSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BrowserSessionUpsertArgs>(args: SelectSubset<T, BrowserSessionUpsertArgs<ExtArgs>>): Prisma__BrowserSessionClient<$Result.GetResult<Prisma.$BrowserSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BrowserSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionCountArgs} args - Arguments to filter BrowserSessions to count.
+     * @example
+     * // Count the number of BrowserSessions
+     * const count = await prisma.browserSession.count({
+     *   where: {
+     *     // ... the filter for the BrowserSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends BrowserSessionCountArgs>(
+      args?: Subset<T, BrowserSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BrowserSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BrowserSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BrowserSessionAggregateArgs>(args: Subset<T, BrowserSessionAggregateArgs>): Prisma.PrismaPromise<GetBrowserSessionAggregateType<T>>
+
+    /**
+     * Group by BrowserSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BrowserSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BrowserSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BrowserSessionGroupByArgs['orderBy'] }
+        : { orderBy?: BrowserSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BrowserSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBrowserSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BrowserSession model
+   */
+  readonly fields: BrowserSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BrowserSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BrowserSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends AdminUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminUserDefaultArgs<ExtArgs>>): Prisma__AdminUserClient<$Result.GetResult<Prisma.$AdminUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BrowserSession model
+   */
+  interface BrowserSessionFieldRefs {
+    readonly id: FieldRef<"BrowserSession", 'Int'>
+    readonly userId: FieldRef<"BrowserSession", 'Int'>
+    readonly browserId: FieldRef<"BrowserSession", 'String'>
+    readonly sessionKey: FieldRef<"BrowserSession", 'String'>
+    readonly expiresAt: FieldRef<"BrowserSession", 'DateTime'>
+    readonly revokedAt: FieldRef<"BrowserSession", 'DateTime'>
+    readonly createdAt: FieldRef<"BrowserSession", 'DateTime'>
+    readonly updatedAt: FieldRef<"BrowserSession", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BrowserSession findUnique
+   */
+  export type BrowserSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which BrowserSession to fetch.
+     */
+    where: BrowserSessionWhereUniqueInput
+  }
+
+  /**
+   * BrowserSession findUniqueOrThrow
+   */
+  export type BrowserSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which BrowserSession to fetch.
+     */
+    where: BrowserSessionWhereUniqueInput
+  }
+
+  /**
+   * BrowserSession findFirst
+   */
+  export type BrowserSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which BrowserSession to fetch.
+     */
+    where?: BrowserSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrowserSessions to fetch.
+     */
+    orderBy?: BrowserSessionOrderByWithRelationInput | BrowserSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BrowserSessions.
+     */
+    cursor?: BrowserSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrowserSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrowserSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrowserSessions.
+     */
+    distinct?: BrowserSessionScalarFieldEnum | BrowserSessionScalarFieldEnum[]
+  }
+
+  /**
+   * BrowserSession findFirstOrThrow
+   */
+  export type BrowserSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which BrowserSession to fetch.
+     */
+    where?: BrowserSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrowserSessions to fetch.
+     */
+    orderBy?: BrowserSessionOrderByWithRelationInput | BrowserSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BrowserSessions.
+     */
+    cursor?: BrowserSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrowserSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrowserSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrowserSessions.
+     */
+    distinct?: BrowserSessionScalarFieldEnum | BrowserSessionScalarFieldEnum[]
+  }
+
+  /**
+   * BrowserSession findMany
+   */
+  export type BrowserSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which BrowserSessions to fetch.
+     */
+    where?: BrowserSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BrowserSessions to fetch.
+     */
+    orderBy?: BrowserSessionOrderByWithRelationInput | BrowserSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BrowserSessions.
+     */
+    cursor?: BrowserSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BrowserSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BrowserSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BrowserSessions.
+     */
+    distinct?: BrowserSessionScalarFieldEnum | BrowserSessionScalarFieldEnum[]
+  }
+
+  /**
+   * BrowserSession create
+   */
+  export type BrowserSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BrowserSession.
+     */
+    data: XOR<BrowserSessionCreateInput, BrowserSessionUncheckedCreateInput>
+  }
+
+  /**
+   * BrowserSession createMany
+   */
+  export type BrowserSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BrowserSessions.
+     */
+    data: BrowserSessionCreateManyInput | BrowserSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BrowserSession update
+   */
+  export type BrowserSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BrowserSession.
+     */
+    data: XOR<BrowserSessionUpdateInput, BrowserSessionUncheckedUpdateInput>
+    /**
+     * Choose, which BrowserSession to update.
+     */
+    where: BrowserSessionWhereUniqueInput
+  }
+
+  /**
+   * BrowserSession updateMany
+   */
+  export type BrowserSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BrowserSessions.
+     */
+    data: XOR<BrowserSessionUpdateManyMutationInput, BrowserSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which BrowserSessions to update
+     */
+    where?: BrowserSessionWhereInput
+    /**
+     * Limit how many BrowserSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BrowserSession upsert
+   */
+  export type BrowserSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BrowserSession to update in case it exists.
+     */
+    where: BrowserSessionWhereUniqueInput
+    /**
+     * In case the BrowserSession found by the `where` argument doesn't exist, create a new BrowserSession with this data.
+     */
+    create: XOR<BrowserSessionCreateInput, BrowserSessionUncheckedCreateInput>
+    /**
+     * In case the BrowserSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BrowserSessionUpdateInput, BrowserSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * BrowserSession delete
+   */
+  export type BrowserSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
+    /**
+     * Filter which BrowserSession to delete.
+     */
+    where: BrowserSessionWhereUniqueInput
+  }
+
+  /**
+   * BrowserSession deleteMany
+   */
+  export type BrowserSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BrowserSessions to delete
+     */
+    where?: BrowserSessionWhereInput
+    /**
+     * Limit how many BrowserSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BrowserSession without action
+   */
+  export type BrowserSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BrowserSession
+     */
+    select?: BrowserSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BrowserSession
+     */
+    omit?: BrowserSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrowserSessionInclude<ExtArgs> | null
   }
 
 
@@ -18267,6 +19392,20 @@ export namespace Prisma {
   export type AdminUserScalarFieldEnum = (typeof AdminUserScalarFieldEnum)[keyof typeof AdminUserScalarFieldEnum]
 
 
+  export const BrowserSessionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    browserId: 'browserId',
+    sessionKey: 'sessionKey',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BrowserSessionScalarFieldEnum = (typeof BrowserSessionScalarFieldEnum)[keyof typeof BrowserSessionScalarFieldEnum]
+
+
   export const PasswordResetTokenScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -18516,6 +19655,14 @@ export namespace Prisma {
   export type AdminUserOrderByRelevanceFieldEnum = (typeof AdminUserOrderByRelevanceFieldEnum)[keyof typeof AdminUserOrderByRelevanceFieldEnum]
 
 
+  export const BrowserSessionOrderByRelevanceFieldEnum: {
+    browserId: 'browserId',
+    sessionKey: 'sessionKey'
+  };
+
+  export type BrowserSessionOrderByRelevanceFieldEnum = (typeof BrowserSessionOrderByRelevanceFieldEnum)[keyof typeof BrowserSessionOrderByRelevanceFieldEnum]
+
+
   export const PasswordResetTokenOrderByRelevanceFieldEnum: {
     tokenHash: 'tokenHash'
   };
@@ -18748,6 +19895,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AdminUser"> | Date | string
     updatedAt?: DateTimeFilter<"AdminUser"> | Date | string
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    browserSessions?: BrowserSessionListRelationFilter
   }
 
   export type AdminUserOrderByWithRelationInput = {
@@ -18762,6 +19910,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    browserSessions?: BrowserSessionOrderByRelationAggregateInput
     _relevance?: AdminUserOrderByRelevanceInput
   }
 
@@ -18780,6 +19929,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AdminUser"> | Date | string
     updatedAt?: DateTimeFilter<"AdminUser"> | Date | string
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    browserSessions?: BrowserSessionListRelationFilter
   }, "id" | "username" | "email">
 
   export type AdminUserOrderByWithAggregationInput = {
@@ -18814,6 +19964,80 @@ export namespace Prisma {
     role?: StringWithAggregatesFilter<"AdminUser"> | string
     createdAt?: DateTimeWithAggregatesFilter<"AdminUser"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AdminUser"> | Date | string
+  }
+
+  export type BrowserSessionWhereInput = {
+    AND?: BrowserSessionWhereInput | BrowserSessionWhereInput[]
+    OR?: BrowserSessionWhereInput[]
+    NOT?: BrowserSessionWhereInput | BrowserSessionWhereInput[]
+    id?: IntFilter<"BrowserSession"> | number
+    userId?: IntFilter<"BrowserSession"> | number
+    browserId?: StringFilter<"BrowserSession"> | string
+    sessionKey?: StringFilter<"BrowserSession"> | string
+    expiresAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    revokedAt?: DateTimeNullableFilter<"BrowserSession"> | Date | string | null
+    createdAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    updatedAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    user?: XOR<AdminUserScalarRelationFilter, AdminUserWhereInput>
+  }
+
+  export type BrowserSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    sessionKey?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: AdminUserOrderByWithRelationInput
+    _relevance?: BrowserSessionOrderByRelevanceInput
+  }
+
+  export type BrowserSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    sessionKey?: string
+    userId_browserId?: BrowserSessionUserIdBrowserIdCompoundUniqueInput
+    AND?: BrowserSessionWhereInput | BrowserSessionWhereInput[]
+    OR?: BrowserSessionWhereInput[]
+    NOT?: BrowserSessionWhereInput | BrowserSessionWhereInput[]
+    userId?: IntFilter<"BrowserSession"> | number
+    browserId?: StringFilter<"BrowserSession"> | string
+    expiresAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    revokedAt?: DateTimeNullableFilter<"BrowserSession"> | Date | string | null
+    createdAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    updatedAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    user?: XOR<AdminUserScalarRelationFilter, AdminUserWhereInput>
+  }, "id" | "sessionKey" | "userId_browserId">
+
+  export type BrowserSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    sessionKey?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BrowserSessionCountOrderByAggregateInput
+    _avg?: BrowserSessionAvgOrderByAggregateInput
+    _max?: BrowserSessionMaxOrderByAggregateInput
+    _min?: BrowserSessionMinOrderByAggregateInput
+    _sum?: BrowserSessionSumOrderByAggregateInput
+  }
+
+  export type BrowserSessionScalarWhereWithAggregatesInput = {
+    AND?: BrowserSessionScalarWhereWithAggregatesInput | BrowserSessionScalarWhereWithAggregatesInput[]
+    OR?: BrowserSessionScalarWhereWithAggregatesInput[]
+    NOT?: BrowserSessionScalarWhereWithAggregatesInput | BrowserSessionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BrowserSession"> | number
+    userId?: IntWithAggregatesFilter<"BrowserSession"> | number
+    browserId?: StringWithAggregatesFilter<"BrowserSession"> | string
+    sessionKey?: StringWithAggregatesFilter<"BrowserSession"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"BrowserSession"> | Date | string
+    revokedAt?: DateTimeNullableWithAggregatesFilter<"BrowserSession"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BrowserSession"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BrowserSession"> | Date | string
   }
 
   export type PasswordResetTokenWhereInput = {
@@ -19988,6 +21212,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    browserSessions?: BrowserSessionCreateNestedManyWithoutUserInput
   }
 
   export type AdminUserUncheckedCreateInput = {
@@ -20002,6 +21227,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    browserSessions?: BrowserSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type AdminUserUpdateInput = {
@@ -20015,6 +21241,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    browserSessions?: BrowserSessionUpdateManyWithoutUserNestedInput
   }
 
   export type AdminUserUncheckedUpdateInput = {
@@ -20029,6 +21256,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    browserSessions?: BrowserSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AdminUserCreateManyInput = {
@@ -20065,6 +21293,79 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrowserSessionCreateInput = {
+    browserId: string
+    sessionKey: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: AdminUserCreateNestedOneWithoutBrowserSessionsInput
+  }
+
+  export type BrowserSessionUncheckedCreateInput = {
+    id?: number
+    userId: number
+    browserId: string
+    sessionKey: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrowserSessionUpdateInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: AdminUserUpdateOneRequiredWithoutBrowserSessionsNestedInput
+  }
+
+  export type BrowserSessionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrowserSessionCreateManyInput = {
+    id?: number
+    userId: number
+    browserId: string
+    sessionKey: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrowserSessionUpdateManyMutationInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrowserSessionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21331,12 +22632,22 @@ export namespace Prisma {
     none?: PasswordResetTokenWhereInput
   }
 
+  export type BrowserSessionListRelationFilter = {
+    every?: BrowserSessionWhereInput
+    some?: BrowserSessionWhereInput
+    none?: BrowserSessionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BrowserSessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21483,6 +22794,74 @@ export namespace Prisma {
     isNot?: AdminUserWhereInput
   }
 
+  export type BrowserSessionOrderByRelevanceInput = {
+    fields: BrowserSessionOrderByRelevanceFieldEnum | BrowserSessionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type BrowserSessionUserIdBrowserIdCompoundUniqueInput = {
+    userId: number
+    browserId: string
+  }
+
+  export type BrowserSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    sessionKey?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrowserSessionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type BrowserSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    sessionKey?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrowserSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    sessionKey?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BrowserSessionSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type PasswordResetTokenOrderByRelevanceInput = {
     fields: PasswordResetTokenOrderByRelevanceFieldEnum | PasswordResetTokenOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -21524,20 +22903,6 @@ export namespace Prisma {
   export type PasswordResetTokenSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ContactInquiryOrderByRelevanceInput = {
@@ -22492,11 +23857,25 @@ export namespace Prisma {
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
   }
 
+  export type BrowserSessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<BrowserSessionCreateWithoutUserInput, BrowserSessionUncheckedCreateWithoutUserInput> | BrowserSessionCreateWithoutUserInput[] | BrowserSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BrowserSessionCreateOrConnectWithoutUserInput | BrowserSessionCreateOrConnectWithoutUserInput[]
+    createMany?: BrowserSessionCreateManyUserInputEnvelope
+    connect?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type BrowserSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BrowserSessionCreateWithoutUserInput, BrowserSessionUncheckedCreateWithoutUserInput> | BrowserSessionCreateWithoutUserInput[] | BrowserSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BrowserSessionCreateOrConnectWithoutUserInput | BrowserSessionCreateOrConnectWithoutUserInput[]
+    createMany?: BrowserSessionCreateManyUserInputEnvelope
+    connect?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -22529,6 +23908,20 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type BrowserSessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BrowserSessionCreateWithoutUserInput, BrowserSessionUncheckedCreateWithoutUserInput> | BrowserSessionCreateWithoutUserInput[] | BrowserSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BrowserSessionCreateOrConnectWithoutUserInput | BrowserSessionCreateOrConnectWithoutUserInput[]
+    upsert?: BrowserSessionUpsertWithWhereUniqueWithoutUserInput | BrowserSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BrowserSessionCreateManyUserInputEnvelope
+    set?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    disconnect?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    delete?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    connect?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    update?: BrowserSessionUpdateWithWhereUniqueWithoutUserInput | BrowserSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BrowserSessionUpdateManyWithWhereWithoutUserInput | BrowserSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BrowserSessionScalarWhereInput | BrowserSessionScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -22551,14 +23944,42 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
-  export type AdminUserCreateNestedOneWithoutPasswordResetTokensInput = {
-    create?: XOR<AdminUserCreateWithoutPasswordResetTokensInput, AdminUserUncheckedCreateWithoutPasswordResetTokensInput>
-    connectOrCreate?: AdminUserCreateOrConnectWithoutPasswordResetTokensInput
+  export type BrowserSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BrowserSessionCreateWithoutUserInput, BrowserSessionUncheckedCreateWithoutUserInput> | BrowserSessionCreateWithoutUserInput[] | BrowserSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BrowserSessionCreateOrConnectWithoutUserInput | BrowserSessionCreateOrConnectWithoutUserInput[]
+    upsert?: BrowserSessionUpsertWithWhereUniqueWithoutUserInput | BrowserSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BrowserSessionCreateManyUserInputEnvelope
+    set?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    disconnect?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    delete?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    connect?: BrowserSessionWhereUniqueInput | BrowserSessionWhereUniqueInput[]
+    update?: BrowserSessionUpdateWithWhereUniqueWithoutUserInput | BrowserSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BrowserSessionUpdateManyWithWhereWithoutUserInput | BrowserSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BrowserSessionScalarWhereInput | BrowserSessionScalarWhereInput[]
+  }
+
+  export type AdminUserCreateNestedOneWithoutBrowserSessionsInput = {
+    create?: XOR<AdminUserCreateWithoutBrowserSessionsInput, AdminUserUncheckedCreateWithoutBrowserSessionsInput>
+    connectOrCreate?: AdminUserCreateOrConnectWithoutBrowserSessionsInput
     connect?: AdminUserWhereUniqueInput
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type AdminUserUpdateOneRequiredWithoutBrowserSessionsNestedInput = {
+    create?: XOR<AdminUserCreateWithoutBrowserSessionsInput, AdminUserUncheckedCreateWithoutBrowserSessionsInput>
+    connectOrCreate?: AdminUserCreateOrConnectWithoutBrowserSessionsInput
+    upsert?: AdminUserUpsertWithoutBrowserSessionsInput
+    connect?: AdminUserWhereUniqueInput
+    update?: XOR<XOR<AdminUserUpdateToOneWithWhereWithoutBrowserSessionsInput, AdminUserUpdateWithoutBrowserSessionsInput>, AdminUserUncheckedUpdateWithoutBrowserSessionsInput>
+  }
+
+  export type AdminUserCreateNestedOneWithoutPasswordResetTokensInput = {
+    create?: XOR<AdminUserCreateWithoutPasswordResetTokensInput, AdminUserUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: AdminUserCreateOrConnectWithoutPasswordResetTokensInput
+    connect?: AdminUserWhereUniqueInput
   }
 
   export type AdminUserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
@@ -23730,6 +25151,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BrowserSessionCreateWithoutUserInput = {
+    browserId: string
+    sessionKey: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrowserSessionUncheckedCreateWithoutUserInput = {
+    id?: number
+    browserId: string
+    sessionKey: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BrowserSessionCreateOrConnectWithoutUserInput = {
+    where: BrowserSessionWhereUniqueInput
+    create: XOR<BrowserSessionCreateWithoutUserInput, BrowserSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type BrowserSessionCreateManyUserInputEnvelope = {
+    data: BrowserSessionCreateManyUserInput | BrowserSessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -23758,6 +25208,106 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type BrowserSessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: BrowserSessionWhereUniqueInput
+    update: XOR<BrowserSessionUpdateWithoutUserInput, BrowserSessionUncheckedUpdateWithoutUserInput>
+    create: XOR<BrowserSessionCreateWithoutUserInput, BrowserSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type BrowserSessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: BrowserSessionWhereUniqueInput
+    data: XOR<BrowserSessionUpdateWithoutUserInput, BrowserSessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BrowserSessionUpdateManyWithWhereWithoutUserInput = {
+    where: BrowserSessionScalarWhereInput
+    data: XOR<BrowserSessionUpdateManyMutationInput, BrowserSessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BrowserSessionScalarWhereInput = {
+    AND?: BrowserSessionScalarWhereInput | BrowserSessionScalarWhereInput[]
+    OR?: BrowserSessionScalarWhereInput[]
+    NOT?: BrowserSessionScalarWhereInput | BrowserSessionScalarWhereInput[]
+    id?: IntFilter<"BrowserSession"> | number
+    userId?: IntFilter<"BrowserSession"> | number
+    browserId?: StringFilter<"BrowserSession"> | string
+    sessionKey?: StringFilter<"BrowserSession"> | string
+    expiresAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    revokedAt?: DateTimeNullableFilter<"BrowserSession"> | Date | string | null
+    createdAt?: DateTimeFilter<"BrowserSession"> | Date | string
+    updatedAt?: DateTimeFilter<"BrowserSession"> | Date | string
+  }
+
+  export type AdminUserCreateWithoutBrowserSessionsInput = {
+    username: string
+    email: string
+    passwordHash: string
+    name?: string | null
+    mobile?: string | null
+    isActive?: boolean
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminUserUncheckedCreateWithoutBrowserSessionsInput = {
+    id?: number
+    username: string
+    email: string
+    passwordHash: string
+    name?: string | null
+    mobile?: string | null
+    isActive?: boolean
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type AdminUserCreateOrConnectWithoutBrowserSessionsInput = {
+    where: AdminUserWhereUniqueInput
+    create: XOR<AdminUserCreateWithoutBrowserSessionsInput, AdminUserUncheckedCreateWithoutBrowserSessionsInput>
+  }
+
+  export type AdminUserUpsertWithoutBrowserSessionsInput = {
+    update: XOR<AdminUserUpdateWithoutBrowserSessionsInput, AdminUserUncheckedUpdateWithoutBrowserSessionsInput>
+    create: XOR<AdminUserCreateWithoutBrowserSessionsInput, AdminUserUncheckedCreateWithoutBrowserSessionsInput>
+    where?: AdminUserWhereInput
+  }
+
+  export type AdminUserUpdateToOneWithWhereWithoutBrowserSessionsInput = {
+    where?: AdminUserWhereInput
+    data: XOR<AdminUserUpdateWithoutBrowserSessionsInput, AdminUserUncheckedUpdateWithoutBrowserSessionsInput>
+  }
+
+  export type AdminUserUpdateWithoutBrowserSessionsInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdminUserUncheckedUpdateWithoutBrowserSessionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type AdminUserCreateWithoutPasswordResetTokensInput = {
     username: string
     email: string
@@ -23768,6 +25318,7 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    browserSessions?: BrowserSessionCreateNestedManyWithoutUserInput
   }
 
   export type AdminUserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -23781,6 +25332,7 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    browserSessions?: BrowserSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type AdminUserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -23809,6 +25361,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    browserSessions?: BrowserSessionUpdateManyWithoutUserNestedInput
   }
 
   export type AdminUserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -23822,6 +25375,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    browserSessions?: BrowserSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IndustryParticipationGalleryCreateWithoutBlogPostInput = {
@@ -25720,6 +27274,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type BrowserSessionCreateManyUserInput = {
+    id?: number
+    browserId: string
+    sessionKey: string
+    expiresAt: Date | string
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type PasswordResetTokenUpdateWithoutUserInput = {
     tokenHash?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25741,6 +27305,35 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrowserSessionUpdateWithoutUserInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrowserSessionUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BrowserSessionUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    browserId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IndustryParticipationGalleryCreateManyBlogPostInput = {

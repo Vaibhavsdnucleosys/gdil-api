@@ -43,12 +43,12 @@ export function requireSystemAdmin(
     });
   }
 
-  if (req.user.role !== "SYSTEM_ADMIN") {
-    return res.status(403).json({
-      success: false,
-      message: "Access denied. Only the System Admin can manage users.",
-    });
-  }
+  if (!["ADMIN", "SYSTEM_ADMIN"].includes(req.user.role)) {
+  return res.status(403).json({
+    success: false,
+    message: "Access denied. Only Admin users can manage users.",
+  });
+}
 
   next();
 }

@@ -20,6 +20,7 @@ import {
 } from "../controllers/investor-table-format.controller";
 
 import { authenticateJWT } from "../middleware/auth.middleware";
+import { authorizeModule } from "../middleware/authorize";
 
 const router = Router();
 
@@ -41,8 +42,11 @@ const router = Router();
  */
 router.get(
   "/assignments",
-  getInvestorTableFormatAssignments
+  authenticateJWT,
+  authorizeModule("investor-table-formats"),
+  getInvestorTableFormatAssignments,
 );
+
 
 /**
  * CREATE assignment
@@ -50,7 +54,8 @@ router.get(
 router.post(
   "/assignments",
   authenticateJWT,
-  createInvestorTableFormatAssignment
+  authorizeModule("investor-table-formats"),
+  createInvestorTableFormatAssignment,
 );
 
 /**
@@ -59,7 +64,8 @@ router.post(
 router.put(
   "/assignments/:id",
   authenticateJWT,
-  updateInvestorTableFormatAssignment
+  authorizeModule("investor-table-formats"),
+  updateInvestorTableFormatAssignment,
 );
 
 /**
@@ -68,9 +74,9 @@ router.put(
 router.delete(
   "/assignments/:id",
   authenticateJWT,
-  deleteInvestorTableFormatAssignment
+  authorizeModule("investor-table-formats"),
+  deleteInvestorTableFormatAssignment,
 );
-
 
 /**
  * |--------------------------------------------------------------------------
@@ -83,7 +89,9 @@ router.delete(
  */
 router.get(
   "/:tableFormatId/columns",
-  getInvestorTableColumns
+  authenticateJWT,
+  authorizeModule("investor-table-formats"),
+  getInvestorTableColumns,
 );
 
 /**
@@ -92,7 +100,8 @@ router.get(
 router.post(
   "/:tableFormatId/columns",
   authenticateJWT,
-  createInvestorTableColumn
+  authorizeModule("investor-table-formats"),
+  createInvestorTableColumn,
 );
 
 /**
@@ -101,7 +110,8 @@ router.post(
 router.put(
   "/columns/:id",
   authenticateJWT,
-  updateInvestorTableColumn
+  authorizeModule("investor-table-formats"),
+  updateInvestorTableColumn,
 );
 
 /**
@@ -110,7 +120,8 @@ router.put(
 router.delete(
   "/columns/:id",
   authenticateJWT,
-  deleteInvestorTableColumn
+  authorizeModule("investor-table-formats"),
+  deleteInvestorTableColumn,
 );
 
 
@@ -125,7 +136,9 @@ router.delete(
  */
 router.get(
   "/",
-  getInvestorTableFormats
+  authenticateJWT,
+  authorizeModule("investor-table-formats"),
+  getInvestorTableFormats,
 );
 
 /**
@@ -133,7 +146,9 @@ router.get(
  */
 router.get(
   "/:id",
-  getInvestorTableFormatById
+  authenticateJWT,
+  authorizeModule("investor-table-formats"),
+  getInvestorTableFormatById,
 );
 
 /**
@@ -142,7 +157,8 @@ router.get(
 router.post(
   "/",
   authenticateJWT,
-  createInvestorTableFormat
+  authorizeModule("investor-table-formats"),
+  createInvestorTableFormat,
 );
 
 /**
@@ -151,7 +167,8 @@ router.post(
 router.put(
   "/:id",
   authenticateJWT,
-  updateInvestorTableFormat
+  authorizeModule("investor-table-formats"),
+  updateInvestorTableFormat,
 );
 
 /**
@@ -160,7 +177,8 @@ router.put(
 router.delete(
   "/:id",
   authenticateJWT,
-  deleteInvestorTableFormat
+  authorizeModule("investor-table-formats"),
+  deleteInvestorTableFormat,
 );
 
 /**
@@ -169,7 +187,8 @@ router.delete(
 router.patch(
   "/:id/status",
   authenticateJWT,
-  updateInvestorTableFormatStatus
+  authorizeModule("investor-table-formats"),
+  updateInvestorTableFormatStatus,
 );
 
 export default router;

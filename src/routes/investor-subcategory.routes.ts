@@ -11,6 +11,7 @@ import {
 } from "../controllers/investor-subcategory.controller";
 
 import { authenticateJWT } from "../middleware/auth.middleware";
+import { authorizeModule } from "../middleware/authorize";
 
 const router = Router();
 
@@ -44,6 +45,7 @@ router.get(
 router.post(
   "/",
   authenticateJWT,
+  authorizeModule("subcategories"),
   createInvestorSubCategory,
 );
 
@@ -53,6 +55,7 @@ router.post(
 router.put(
   "/:id",
   authenticateJWT,
+  authorizeModule("subcategories"),
   updateInvestorSubCategory,
 );
 
@@ -62,6 +65,7 @@ router.put(
 router.delete(
   "/:id",
   authenticateJWT,
+  authorizeModule("subcategories"),
   deleteInvestorSubCategory,
 );
 
@@ -71,6 +75,7 @@ router.delete(
 router.patch(
   "/:id/status",
   authenticateJWT,
+  authorizeModule("subcategories"),
   updateInvestorSubCategoryStatus,
 );
 

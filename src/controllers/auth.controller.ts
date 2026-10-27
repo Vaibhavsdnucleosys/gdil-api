@@ -11,15 +11,12 @@ import crypto from "node:crypto";
 import nodemailer from "nodemailer";
 
 import prisma from "../lib/prisma";
+import { AuthenticatedRequest } from "../middleware/auth.middleware";
 
 const loginSchema = z.object({
-  email: z
-    .string()
-    .email(),
-
-  password: z
-    .string()
-    .min(1),
+  email: z.string().email(),
+  password: z.string().min(1),
+  browserId: z.string().uuid(),
 });
 
 export async function login(
@@ -45,10 +42,7 @@ export async function login(
       });
     }
 
-    const {
-      email,
-      password,
-    } = parsed.data;
+    const { email, password, browserId } = parsed.data;
 
     /*
     |--------------------------------------------------------------------------
@@ -109,21 +103,54 @@ export async function login(
     |--------------------------------------------------------------------------
     */
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE BROWSER SESSION AND JWT
+    |--------------------------------------------------------------------------
+    */
+
     const secret = process.env.JWT_SECRET;
 
     if (!secret) {
       throw new Error("JWT_SECRET is not configured");
     }
 
+    const role = admin.role;
+    const now = new Date();
     const expiresIn = process.env.JWT_EXPIRES_IN || "1d";
 
-    // Read role from the database, never from the login request.
-    const role = admin.role;
+    // Check for an existing session in this browser profile.
+    const existingSession = await prisma.browserSession.findUnique({
+      where: {
+        userId_browserId: {
+          userId: admin.id,
+          browserId,
+        },
+      },
+    });
+
+    // Prevent duplicate login if this session is still active.
+    if (
+      existingSession &&
+      !existingSession.revokedAt &&
+      existingSession.expiresAt > now
+    ) {
+      return res.status(409).json({
+        success: false,
+        code: "SESSION_ALREADY_ACTIVE",
+        message:
+          "You are already logged in in this browser profile. Please use your existing session or log out first.",
+      });
+    }
+
+    const sessionKey = crypto.randomUUID();
 
     const token = jwt.sign(
       {
         email: admin.email,
         role,
+        sid: sessionKey,
       },
       secret,
       {
@@ -131,6 +158,43 @@ export async function login(
         expiresIn: expiresIn as jwt.SignOptions["expiresIn"],
       },
     );
+
+    const decodedToken = jwt.decode(token);
+
+    if (
+      !decodedToken ||
+      typeof decodedToken === "string" ||
+      !decodedToken.exp
+    ) {
+      throw new Error("Could not determine JWT expiration");
+    }
+
+    const expiresAt = new Date(decodedToken.exp * 1000);
+
+    if (existingSession) {
+      await prisma.browserSession.update({
+        where: {
+          userId_browserId: {
+            userId: admin.id,
+            browserId,
+          },
+        },
+        data: {
+          sessionKey,
+          expiresAt,
+          revokedAt: null,
+        },
+      });
+    } else {
+      await prisma.browserSession.create({
+        data: {
+          userId: admin.id,
+          browserId,
+          sessionKey,
+          expiresAt,
+        },
+      });
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -155,6 +219,39 @@ export async function login(
     next(error);
   }
 }
+export async function logout(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    if (!req.user?.sessionId) {
+      return res.status(401).json({
+        success: false,
+        message: "No active session found",
+      });
+    }
+
+    await prisma.browserSession.updateMany({
+      where: {
+        sessionKey: req.user.sessionId,
+        userId: req.user.id,
+        revokedAt: null,
+      },
+      data: {
+        revokedAt: new Date(),
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const forgotPasswordSchema = z.object({
   email: z.string().trim().email().max(255),
 });
@@ -387,17 +484,32 @@ export async function resetPassword(
 
       await tx.adminUser.update({
         where: { id: resetRecord.userId },
-        data: { passwordHash },
+        data: {
+          passwordHash,
+        },
       });
 
-      // Invalidate any other outstanding reset links for this user.
+      // Log out this user from all devices.
+      await tx.browserSession.updateMany({
+        where: {
+          userId: resetRecord.userId,
+          revokedAt: null,
+        },
+        data: {
+          revokedAt: now,
+        },
+      });
+
+      // Invalidate other outstanding reset links.
       await tx.passwordResetToken.updateMany({
         where: {
           userId: resetRecord.userId,
           id: { not: resetRecord.id },
           usedAt: null,
         },
-        data: { usedAt: now },
+        data: {
+          usedAt: now,
+        },
       });
 
       return true;

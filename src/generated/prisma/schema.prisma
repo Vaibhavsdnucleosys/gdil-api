@@ -25,8 +25,26 @@ model AdminUser {
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   passwordResetTokens PasswordResetToken[]
+  browserSessions     BrowserSession[]
 
   @@map("admin_users")
+}
+
+model BrowserSession {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  browserId  String    @db.VarChar(64)
+  sessionKey String    @unique @db.VarChar(36)
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, browserId])
+  @@index([expiresAt])
+  @@map("browser_sessions")
 }
 
 model PasswordResetToken {

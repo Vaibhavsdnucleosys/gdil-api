@@ -133,6 +133,17 @@ exports.Prisma.AdminUserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BrowserSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  browserId: 'browserId',
+  sessionKey: 'sessionKey',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -328,6 +339,11 @@ exports.Prisma.AdminUserOrderByRelevanceFieldEnum = {
   role: 'role'
 };
 
+exports.Prisma.BrowserSessionOrderByRelevanceFieldEnum = {
+  browserId: 'browserId',
+  sessionKey: 'sessionKey'
+};
+
 exports.Prisma.PasswordResetTokenOrderByRelevanceFieldEnum = {
   tokenHash: 'tokenHash'
 };
@@ -447,6 +463,7 @@ exports.InvestorTableFieldType = exports.$Enums.InvestorTableFieldType = {
 
 exports.Prisma.ModelName = {
   AdminUser: 'AdminUser',
+  BrowserSession: 'BrowserSession',
   PasswordResetToken: 'PasswordResetToken',
   ContactInquiry: 'ContactInquiry',
   CareerApplication: 'CareerApplication',

@@ -3,12 +3,29 @@ import type { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import prisma from "../lib/prisma";
 
+const ALLOWED_ROLES = [
+  "ADMIN",
+  "CS_TEAM",
+  "HR",
+  "EDITOR",
+] as const;
+
+type UserRole = (typeof ALLOWED_ROLES)[number];
+
+function isValidRole(role: unknown): role is UserRole {
+  return (
+    typeof role === "string" &&
+    ALLOWED_ROLES.includes(role as UserRole)
+  );
+}
+
 const userSelect = {
   id: true,
   username: true,
   name: true,
   email: true,
   mobile: true,
+  role: true,
   isActive: true,
   createdAt: true,
 } as const;
@@ -42,7 +59,7 @@ export async function createAdminUser(
   res: Response
 ) {
   try {
-    const { username, name, email, mobile, password } = req.body ?? {};
+    const { username, name, email, mobile, password, role } = req.body ?? {};
 
     if (
       typeof username !== "string" ||
@@ -54,6 +71,14 @@ export async function createAdminUser(
       return res.status(400).json({
         success: false,
         message: "All fields are required.",
+      });
+    }
+
+    if (!isValidRole(role)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please select a valid role.",
+        allowedRoles: ALLOWED_ROLES,
       });
     }
 
@@ -134,6 +159,7 @@ export async function createAdminUser(
         email: cleanEmail,
         mobile: cleanMobile,
         passwordHash,
+        role,
         isActive: true,
       },
       select: userSelect,
@@ -195,6 +221,7 @@ export async function updateAdminUser(req: Request, res: Response) {
       mobile,
       password,
       isActive,
+      role,
     } = req.body ?? {};
 
     if (
@@ -258,6 +285,13 @@ export async function updateAdminUser(req: Request, res: Response) {
         message: "isActive must be true or false.",
       });
     }
+    if (role !== undefined && !isValidRole(role)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please select a valid role.",
+        allowedRoles: ALLOWED_ROLES,
+      });
+    }
 
     const duplicate = await prisma.adminUser.findFirst({
       where: {
@@ -289,6 +323,7 @@ export async function updateAdminUser(req: Request, res: Response) {
       name: string;
       email: string;
       mobile: string;
+      role?: UserRole;
       isActive?: boolean;
       passwordHash?: string;
     } = {
@@ -300,6 +335,9 @@ export async function updateAdminUser(req: Request, res: Response) {
 
     if (isActive !== undefined) {
       data.isActive = isActive;
+    }
+    if (role !== undefined) {
+      data.role = role;
     }
 
     if (password !== undefined && password !== "") {
@@ -326,6 +364,7 @@ export async function updateAdminUser(req: Request, res: Response) {
         name: true,
         email: true,
         mobile: true,
+        role: true,
         isActive: true,
         createdAt: true,
         updatedAt: true,
@@ -372,15 +411,39 @@ export async function deleteAdminUser(req: Request, res: Response) {
 
     const existingUser = await prisma.adminUser.findUnique({
       where: { id },
-      select: { id: true, username: true },
+      select: {
+        id: true,
+        username: true,
+        role: true,
+        isActive: true,
+      },
     });
-
     if (!existingUser) {
       return res.status(404).json({
         success: false,
         message: "User not found.",
       });
     }
+    if (
+  existingUser.isActive &&
+  ["ADMIN", "SYSTEM_ADMIN"].includes(existingUser.role)
+) {
+  const activeAdminCount = await prisma.adminUser.count({
+    where: {
+      isActive: true,
+      role: {
+        in: ["ADMIN", "SYSTEM_ADMIN"],
+      },
+    },
+  });
+
+  if (activeAdminCount <= 1) {
+    return res.status(409).json({
+      success: false,
+      message: "The last active Admin cannot be deleted.",
+    });
+  }
+}
 
     await prisma.adminUser.delete({
       where: { id },

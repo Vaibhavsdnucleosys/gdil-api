@@ -15,8 +15,8 @@ import {
   deleteCareerApplication,
 } from "../controllers/career.controller";
 
-
 import { authenticateJWT } from "../middleware/auth.middleware";
+import { authorizeModule } from "../middleware/authorize";
 
 const router = Router();
 
@@ -59,6 +59,7 @@ router.post(
 router.get(
   "/admin",
   authenticateJWT,
+  authorizeModule("inquiries"),
   getContactInquiries,
 );
 
@@ -70,6 +71,7 @@ router.get(
 router.get(
   "/admin/:id",
   authenticateJWT,
+  authorizeModule("inquiries"),
   getContactInquiryById,
 );
 
@@ -81,6 +83,7 @@ router.get(
 router.patch(
   "/admin/:id/status",
   authenticateJWT,
+  authorizeModule("inquiries"),
   updateContactInquiryStatus,
 );
 
@@ -92,6 +95,7 @@ router.patch(
 router.delete(
   "/admin/:id",
   authenticateJWT,
+  authorizeModule("inquiries"),
   deleteContactInquiry,
 );
 /**
@@ -108,6 +112,7 @@ router.delete(
 router.get(
   "/careers/admin",
   authenticateJWT,
+  authorizeModule("careers"),
   getCareerApplications,
 );
 
@@ -119,6 +124,7 @@ router.get(
 router.get(
   "/careers/admin/:id",
   authenticateJWT,
+  authorizeModule("careers"),
   getCareerApplicationById,
 );
 
@@ -130,6 +136,7 @@ router.get(
 router.patch(
   "/careers/admin/:id/status",
   authenticateJWT,
+  authorizeModule("careers"),
   updateCareerApplicationStatus,
 );
 
@@ -141,6 +148,7 @@ router.patch(
 router.delete(
   "/careers/admin/:id",
   authenticateJWT,
+  authorizeModule("careers"),
   deleteCareerApplication,
 );
 
