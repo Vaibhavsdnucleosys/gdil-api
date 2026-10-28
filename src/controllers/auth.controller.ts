@@ -131,18 +131,18 @@ export async function login(
     });
 
     // Prevent duplicate login if this session is still active.
-    if (
-      existingSession &&
-      !existingSession.revokedAt &&
-      existingSession.expiresAt > now
-    ) {
-      return res.status(409).json({
-        success: false,
-        code: "SESSION_ALREADY_ACTIVE",
-        message:
-          "You are already logged in in this browser profile. Please use your existing session or log out first.",
-      });
-    }
+    // if (
+    //   existingSession &&
+    //   !existingSession.revokedAt &&
+    //   existingSession.expiresAt > now
+    // ) {
+    //   return res.status(409).json({
+    //     success: false,
+    //     code: "SESSION_ALREADY_ACTIVE",
+    //     message:
+    //       "You are already logged in in this browser profile. Please use your existing session or log out first.",
+    //   });
+    // }
 
     const sessionKey = crypto.randomUUID();
 
